@@ -1,6 +1,10 @@
 This text file has the following structure:
 
 root
+├── file1.txt
+├── file2.TXT
+├── FILE3.txt
+├── FILE4.TXT
 ├── foo.txt
 ├── hello_world.txt
 ├── readme.txt
@@ -25,12 +29,13 @@ root
     └── subdirAB
         └── hello_world.py
 
-17 directories, 7 files
+17 directories, 11 files
 
-foo is the same as in test.img
-hello_world is a single line containing "Hello World!"
+file[1-4] have a single character, their respective number
+foo.txt is the same as in test.img
+hello_world.txt is a single line containing "Hello World!"
 readme.txt is this file
 lorem_ipsum is placeholder text
-2000_zeroes is 2000 "0" characters in one line
-count_to_2048 is 2048 lines, each with its own index
+2000_zeroes.txt is 2000 "0" characters in one line
+count_to_2048.txt is 2048 lines, each containing its own index
 hello_world.py is a single line containing "print("Hello World!")"

@@ -15,7 +15,8 @@ int main(int argc, char * argv[])
 	uint8_t zero=0;
 
 	//File is of size BLOCK_SIZE*BLOCK_COUNT
-	FILE *file=fopen("image.img","r+");
+	FILE *file=fopen("image.img","w");
+	fseek(file,0,SEEK_SET);
 	for(int i=0;i<BLOCK_SIZE*BLOCK_COUNT;i++)
 		fwrite(&zero,1,1,file);
 	fseek(file,0,SEEK_SET);
@@ -29,6 +30,17 @@ int main(int argc, char * argv[])
 	buf32=htonl(FAT_BLOCK_COUNT);	fwrite(&buf32,4,1,file);
 	buf32=htonl(ROOT_START_BLOCK);	fwrite(&buf32,4,1,file);
 	buf32=htonl(ROOT_BLOCK_COUNT);	fwrite(&buf32,4,1,file);
+
+	//mark root block as reserved
+	fseek(file,FAT_START_BLOCK*BLOCK_SIZE,SEEK_SET);
+	buf32=htonl(1);			fwrite(&buf32,4,1,file);
+
+	//mark blocks for fat as reserved
+	fseek(file,FAT_START_BLOCK*BLOCK_SIZE+FAT_START_BLOCK*4,SEEK_SET);
+	for(int i=0;i<FAT_BLOCK_COUNT;i++)
+	{
+		buf32=htonl(1);		fwrite(&buf32,4,1,file);
+	}
 
 	//Root linked list, the start is always ROOT_START_BLOCK,
 	//and the end is always 0xffffffff,
