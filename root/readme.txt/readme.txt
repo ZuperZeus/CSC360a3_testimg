@@ -1,4 +1,4 @@
-This text file has the following structure:
+This image file has the following structure:
 
 root
 ├── file1.txt
